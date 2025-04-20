@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Tournament Manager</string>
+    <string name="create_tournament">Create Tournament</string>
+    <string name="load_tournament">Load Tournament</string>
+    <string name="manage_players">Manage Players</string>
+    <string name="pairings">Tournament - Pairings</string>
+    <string name="rankings">Tournament - Rankings</string>
+    <string name="quit">Quit</string>
+    <string name="back_button">Back</string>
+    <string name="author">by Adam Chobot</string>
 </resources>
