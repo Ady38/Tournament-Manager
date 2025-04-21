@@ -21,14 +21,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ady.tournamentmanager.R
+import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 import com.ady.tournamentmanager.ui.theme.TournamentManagerTheme
 import kotlin.system.exitProcess
 
+object StartDestination : NavigationDestination {
+    override val route = "start"
+    override val titleRes = R.string.app_name
+}
 
 @SuppressLint("ContextCastToActivity") //Need to cast due to app termination
 @Composable
 fun StartScreen(
-    modifier : Modifier = Modifier
+    modifier : Modifier = Modifier,
+    navigateToCreate : () -> Unit,
+    navigateToLoad: () -> Unit,
+    navigateToPlayers: () -> Unit
 ) {
     val activity = (LocalContext.current as? Activity)
 
@@ -50,7 +58,7 @@ fun StartScreen(
             modifier = Modifier.height(100.dp)
         )
         OutlinedButton(
-            onClick = { },
+            onClick = { navigateToCreate },
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(
@@ -58,7 +66,7 @@ fun StartScreen(
             )
         }
         OutlinedButton(
-            onClick = { },
+            onClick = { navigateToLoad },
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(
@@ -66,7 +74,7 @@ fun StartScreen(
             )
         }
         OutlinedButton(
-            onClick = { },
+            onClick = { navigateToPlayers },
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(
@@ -95,6 +103,9 @@ fun exitApp(activity: Activity?) {
 fun StartOrderPreview() {
     TournamentManagerTheme {
         StartScreen(
+            navigateToCreate = {},
+            navigateToLoad = {},
+            navigateToPlayers = {},
             modifier = Modifier
                 .fillMaxSize()
         )
