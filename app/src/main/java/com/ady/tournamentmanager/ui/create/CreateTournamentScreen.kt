@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenuItem
@@ -78,7 +78,7 @@ fun CreateTournamentScreen (
         ) {
             OutlinedTextField(
                 value = viewModel.name,
-                onValueChange = { viewModel.UpdateName(it) },
+                onValueChange = { viewModel.updateName(it) },
                 label = { Text(stringResource(R.string.name_input)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -86,28 +86,38 @@ fun CreateTournamentScreen (
                     imeAction = ImeAction.Done
                 )
             )
+            Text(
+                text = "Choose number of phases"
+            )
             DropDownMenu(
                 list = listOf("1","2"),
-                onTextChange = { viewModel.UpdatePhasesNumber(it) },
+                onTextChange = { viewModel.updatePhasesNumber(it) },
                 value = viewModel.phases
+            )
+            Text(
+                text = "Choose first phase"
             )
             DropDownMenu(
                 listOf("Swiss", "Round Robin", "Single Elminiation"),
-                onTextChange = { viewModel.UpdateFirstPhase(it) },
+                onTextChange = { viewModel.updateFirstPhase(it) },
                 value = viewModel.firstPhase
             )
             if (viewModel.phases == "2"){
+                Text(
+                    text = "Choose second phase"
+                )
                 DropDownMenu(
                     listOf("Round Robin", "Single Elminiation"),
-                    onTextChange = { viewModel.UpdateSecondPhase(it) },
+                    onTextChange = { viewModel.updateSecondPhase(it) },
                     value = viewModel.secondPhase
                 )
             }   else {
-                viewModel.UpdateSecondPhase("")
+                viewModel.updateSecondPhase("")
             }
             OutlinedButton(
                 onClick = navigateToRankings,
-                modifier = Modifier.widthIn(min = 300.dp)
+                modifier = Modifier.widthIn(min = 300.dp),
+                enabled = viewModel.isValid
             ) {
                 Text(
                     text = stringResource(R.string.create_tournament)

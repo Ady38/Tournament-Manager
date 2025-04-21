@@ -4,30 +4,38 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class CreateTournamentViewModel : ViewModel() {
+
     var name by mutableStateOf("")
     var phases by mutableStateOf("")
     var firstPhase by mutableStateOf("")
     var secondPhase by mutableStateOf("")
+    var isValid by mutableStateOf(false)
 
-    fun UpdateName(newName : String) {
+    fun updateName(newName : String) {
         name = newName
+        checkValidity()
     }
 
-    fun UpdatePhasesNumber(newNumber: String) {
+    fun updatePhasesNumber(newNumber: String) {
         phases = newNumber
+        checkValidity()
     }
 
-    fun UpdateFirstPhase(newPhase : String) {
+    fun updateFirstPhase(newPhase : String) {
         firstPhase = newPhase
+        checkValidity()
     }
 
-    fun UpdateSecondPhase(newPhase: String) {
+    fun updateSecondPhase(newPhase: String) {
         secondPhase = newPhase
+        checkValidity()
+    }
+
+    private fun checkValidity() {
+        isValid =  (name != "" && phases == "1" && firstPhase != "")
+                || (name != "" && phases == "2" && firstPhase != "" && secondPhase != "")
     }
 
 }

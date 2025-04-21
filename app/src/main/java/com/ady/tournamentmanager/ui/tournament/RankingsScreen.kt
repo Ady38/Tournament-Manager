@@ -36,8 +36,7 @@ fun RankingsScreen (
     Scaffold (
         topBar = {
             TournamentManagerTopAppBar(
-                title = stringResource(RankingsDestination.titleRes),
-
+                title = "Meno Turnaja - " + stringResource(RankingsDestination.titleRes),
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = onNavigateUp
@@ -56,7 +55,6 @@ fun RankingsScreen (
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Created Tournament")
         }
     }
 }
