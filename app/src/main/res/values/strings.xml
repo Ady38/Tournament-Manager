@@ -8,4 +8,9 @@
     <string name="quit">Quit</string>
     <string name="back_button">Back</string>
     <string name="author">by Adam Chobot</string>
+    <string name="name_input">Name</string>
+    <string name="one_phase">1</string>
+    <string name="phases_input">Number of phases</string>
+    <string name="first_phase">First Phase</string>
+    <string name="second_phase">second phase</string>
 </resources>

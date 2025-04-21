@@ -100,7 +100,7 @@ fun exitApp(activity: Activity?) {
 
 @Preview
 @Composable
-fun StartOrderPreview() {
+fun StartPreview() {
     TournamentManagerTheme {
         StartScreen(
             navigateToCreate = {},
