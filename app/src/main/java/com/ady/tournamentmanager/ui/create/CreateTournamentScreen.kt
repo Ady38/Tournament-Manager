@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,10 +30,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ady.tournamentmanager.R
 import com.ady.tournamentmanager.TournamentManagerTopAppBar
+import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 import com.ady.tournamentmanager.ui.theme.TournamentManagerTheme
 
@@ -45,6 +50,7 @@ object CreateTournamentDestination : NavigationDestination {
 fun CreateTournamentScreen (
     onNavigateUp: () -> Unit,
     navigateToRankings : () -> Unit,
+    viewModel: CreateTournamentViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -71,24 +77,34 @@ fun CreateTournamentScreen (
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
+                value = viewModel.name,
+                onValueChange = { viewModel.UpdateName(it) },
                 label = { Text(stringResource(R.string.name_input)) },
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                singleLine = true,
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    imeAction = ImeAction.Done
+                )
             )
             DropDownMenu(
                 list = listOf("1","2"),
-                label = R.string.phases_input
+                onTextChange = { viewModel.UpdatePhasesNumber(it) },
+                value = viewModel.phases
             )
             DropDownMenu(
-                list = listOf("Swiss", "Round Robin", "Single Elminiation"),
-                label = R.string.first_phase
+                listOf("Swiss", "Round Robin", "Single Elminiation"),
+                onTextChange = { viewModel.UpdateFirstPhase(it) },
+                value = viewModel.firstPhase
             )
-            DropDownMenu(
-                listOf("Round Robin", "Single Elminiation"),
-                label = R.string.second_phase
-            )
+            if (viewModel.phases == "2"){
+                DropDownMenu(
+                    listOf("Round Robin", "Single Elminiation"),
+                    onTextChange = { viewModel.UpdateSecondPhase(it) },
+                    value = viewModel.secondPhase
+                )
+            }   else {
+                viewModel.UpdateSecondPhase("")
+            }
             OutlinedButton(
                 onClick = navigateToRankings,
                 modifier = Modifier.widthIn(min = 300.dp)
@@ -105,10 +121,10 @@ fun CreateTournamentScreen (
 @OptIn(ExperimentalMaterial3Api::class)
 fun DropDownMenu(
     list: List<String>,
-    label: Int
+    onTextChange: (String) -> Unit,
+    value: String
 ) {
     var isExpanded by remember { mutableStateOf(false)}
-    var selectedText by remember { mutableStateOf(list[0]) }
 
     ExposedDropdownMenuBox(
         expanded = isExpanded,
@@ -118,11 +134,10 @@ fun DropDownMenu(
             modifier = Modifier
                 .menuAnchor()
                 .fillMaxWidth(),
-            value = selectedText,
-            onValueChange = {},
+            value = value,
+            onValueChange = { },
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-            label = { stringResource(label)}
         )
 
         ExposedDropdownMenu(
@@ -133,7 +148,7 @@ fun DropDownMenu(
                 DropdownMenuItem(
                     text = {Text (text = text)},
                     onClick = {
-                        selectedText = list[index]
+                        onTextChange(list[index])
                         isExpanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
