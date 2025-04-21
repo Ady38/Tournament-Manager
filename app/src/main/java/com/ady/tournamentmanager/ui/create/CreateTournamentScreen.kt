@@ -1,23 +1,21 @@
-package com.ady.tournamentmanager.ui
+package com.ady.tournamentmanager.ui.create
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
@@ -26,11 +24,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.ady.tournamentmanager.R
 import com.ady.tournamentmanager.TournamentManagerTopAppBar
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
@@ -45,6 +44,7 @@ object CreateTournamentDestination : NavigationDestination {
 @Composable
 fun CreateTournamentScreen (
     onNavigateUp: () -> Unit,
+    navigateToRankings : () -> Unit,
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
@@ -66,7 +66,9 @@ fun CreateTournamentScreen (
                     top = innerPadding.calculateTopPadding()
                 )
                 .verticalScroll(rememberScrollState())
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
                 value = "",
@@ -87,6 +89,14 @@ fun CreateTournamentScreen (
                 listOf("Round Robin", "Single Elminiation"),
                 label = R.string.second_phase
             )
+            OutlinedButton(
+                onClick = navigateToRankings,
+                modifier = Modifier.widthIn(min = 300.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.create_tournament)
+                )
+            }
         }
     }
 }
@@ -138,7 +148,8 @@ fun DropDownMenu(
 fun CreateTournamentPreview() {
     TournamentManagerTheme {
         CreateTournamentScreen(
-            onNavigateUp = {}
+            onNavigateUp = {},
+            navigateToRankings = {}
         )
     }
 }

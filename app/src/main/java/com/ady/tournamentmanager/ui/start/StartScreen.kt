@@ -1,4 +1,4 @@
-package com.ady.tournamentmanager.ui
+package com.ady.tournamentmanager.ui.start
 
 import android.annotation.SuppressLint
 import android.app.Activity
