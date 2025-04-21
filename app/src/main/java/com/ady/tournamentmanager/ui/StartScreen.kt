@@ -58,7 +58,7 @@ fun StartScreen(
             modifier = Modifier.height(100.dp)
         )
         OutlinedButton(
-            onClick = { navigateToCreate },
+            onClick = navigateToCreate,
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(
@@ -66,7 +66,7 @@ fun StartScreen(
             )
         }
         OutlinedButton(
-            onClick = { navigateToLoad },
+            onClick = navigateToLoad,
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(
@@ -74,7 +74,7 @@ fun StartScreen(
             )
         }
         OutlinedButton(
-            onClick = { navigateToPlayers },
+            onClick = navigateToPlayers,
             modifier = Modifier.widthIn(min = 300.dp)
         ) {
             Text(

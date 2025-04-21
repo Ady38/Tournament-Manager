@@ -36,7 +36,7 @@ fun TournamentManagerTopAppBar(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {}
-) {
+){
     CenterAlignedTopAppBar(
         title = { Text(title) },
         modifier = modifier,
