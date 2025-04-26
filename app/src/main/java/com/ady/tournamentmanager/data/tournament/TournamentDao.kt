@@ -20,8 +20,8 @@ interface TournamentDao {
     suspend fun delete(tournament: Tournament)
 
     @Query("SELECT * from tournaments WHERE id = :id")
-    fun getItem(id: Int): Flow<Player>
+    fun getItem(id: Int): Flow<Tournament>
 
     @Query("SELECT * from tournaments ORDER BY date ASC")
-    fun getAllItems(): Flow<List<Player>>
+    fun getAllItems(): Flow<List<Tournament>>
 }

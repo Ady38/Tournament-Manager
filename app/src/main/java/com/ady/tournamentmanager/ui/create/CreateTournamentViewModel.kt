@@ -1,11 +1,16 @@
 package com.ady.tournamentmanager.ui.create
 
+import androidx.compose.material3.DatePicker
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.ady.tournamentmanager.data.tournament.Tournament
+import com.ady.tournamentmanager.data.tournament.TournamentRepository
+import java.sql.Date
+import java.util.Calendar
 
-class CreateTournamentViewModel : ViewModel() {
+class CreateTournamentViewModel(private val tournamentRepository: TournamentRepository) : ViewModel() {
 
     var name by mutableStateOf("")
     var phases by mutableStateOf("")
@@ -37,5 +42,19 @@ class CreateTournamentViewModel : ViewModel() {
         isValid =  (name != "" && phases == "1" && firstPhase != "")
                 || (name != "" && phases == "2" && firstPhase != "" && secondPhase != "")
     }
+
+    suspend fun saveItem() {
+        if (isValid) {
+            tournamentRepository.insertItem(toTournament())
+        }
+    }
+
+    fun toTournament(): Tournament = Tournament(
+        id = 0,
+        name = name,
+        firstStage = firstPhase,
+        secondStage = secondPhase,
+        date = Calendar.getInstance().time as Date
+    )
 
 }

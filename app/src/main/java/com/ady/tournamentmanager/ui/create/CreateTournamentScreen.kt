@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +40,7 @@ import com.ady.tournamentmanager.TournamentManagerTopAppBar
 import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 import com.ady.tournamentmanager.ui.theme.TournamentManagerTheme
+import kotlinx.coroutines.launch
 
 object CreateTournamentDestination : NavigationDestination {
     override val route = "create tournament"
@@ -53,6 +55,7 @@ fun CreateTournamentScreen (
     viewModel: CreateTournamentViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = {
@@ -115,7 +118,11 @@ fun CreateTournamentScreen (
                 viewModel.updateSecondPhase("")
             }
             OutlinedButton(
-                onClick = navigateToRankings,
+                onClick = {
+                    coroutineScope.launch {
+                        viewModel.saveItem()
+                    }
+                    navigateToRankings },
                 modifier = Modifier.widthIn(min = 300.dp),
                 enabled = viewModel.isValid
             ) {
