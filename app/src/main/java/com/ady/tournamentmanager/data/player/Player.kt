@@ -1,4 +1,4 @@
-package com.ady.tournamentmanager.data
+package com.ady.tournamentmanager.data.player
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
