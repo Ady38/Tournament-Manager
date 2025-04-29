@@ -33,8 +33,7 @@ fun TournamentManagerNavHost(
         composable (route = CreateTournamentDestination.route) {
             CreateTournamentScreen(
                 onNavigateUp = { navController.navigate(StartDestination.route) },
-                //navController.navigate(RankingsDestination.route)
-                navigateToRankings = {  }
+                navigateToRankings = { navController.navigate(RankingsDestination.route) }
             )
         }
         composable (route = RankingsDestination.route) {

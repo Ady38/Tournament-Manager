@@ -121,7 +121,8 @@ fun CreateTournamentScreen (
                 onClick = {
                     coroutineScope.launch {
                         viewModel.saveItem()
-                    } 
+                    }
+                    navigateToRankings()
                           },
                 modifier = Modifier.widthIn(min = 300.dp),
                 enabled = viewModel.isValid
