@@ -10,5 +10,4 @@ data class Tournament(
     val name: String,
     val firstStage: String,
     val secondStage: String,
-    val date: Date
 )

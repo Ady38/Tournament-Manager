@@ -22,6 +22,6 @@ interface TournamentDao {
     @Query("SELECT * from tournaments WHERE id = :id")
     fun getItem(id: Int): Flow<Tournament>
 
-    @Query("SELECT * from tournaments ORDER BY date ASC")
+    @Query("SELECT * from tournaments ORDER BY id ASC")
     fun getAllItems(): Flow<List<Tournament>>
 }
