@@ -36,7 +36,6 @@ fun StartScreen(
     modifier : Modifier = Modifier,
     navigateToCreate : () -> Unit,
     navigateToLoad: () -> Unit,
-    navigateToPlayers: () -> Unit
 ) {
     val activity = (LocalContext.current as? Activity)
 
@@ -74,14 +73,6 @@ fun StartScreen(
             )
         }
         OutlinedButton(
-            onClick = navigateToPlayers,
-            modifier = Modifier.widthIn(min = 300.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.manage_players)
-            )
-        }
-        OutlinedButton(
             onClick = { exitApp(activity)
             },
             modifier = Modifier.widthIn(min = 300.dp)
@@ -105,7 +96,6 @@ fun StartPreview() {
         StartScreen(
             navigateToCreate = {},
             navigateToLoad = {},
-            navigateToPlayers = {},
             modifier = Modifier
                 .fillMaxSize()
         )

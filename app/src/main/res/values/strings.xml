@@ -13,4 +13,8 @@
     <string name="phases_input">Number of phases</string>
     <string name="first_phase">First Phase</string>
     <string name="second_phase">second phase</string>
+    <string name="no_tournament_description">No tournament in database</string>
+    <string name="delete_tournament_confirmation">"Do you really want to delete tournament "</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 </resources>

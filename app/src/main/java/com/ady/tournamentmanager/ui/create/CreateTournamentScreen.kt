@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
@@ -51,7 +50,6 @@ object CreateTournamentDestination : NavigationDestination {
 @Composable
 fun CreateTournamentScreen (
     onNavigateUp: () -> Unit,
-    navigateToRankings : () -> Unit,
     viewModel: CreateTournamentViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -101,7 +99,7 @@ fun CreateTournamentScreen (
                 text = "Choose first phase"
             )
             DropDownMenu(
-                listOf("Swiss", "Round Robin", "Single Elminiation"),
+                listOf("Round Robin", "Single Elminiation"),
                 onTextChange = { viewModel.updateFirstPhase(it) },
                 value = viewModel.firstPhase
             )
@@ -110,7 +108,7 @@ fun CreateTournamentScreen (
                     text = "Choose second phase"
                 )
                 DropDownMenu(
-                    listOf("Round Robin", "Single Elminiation"),
+                    listOf("Single Elminiation"),
                     onTextChange = { viewModel.updateSecondPhase(it) },
                     value = viewModel.secondPhase
                 )
@@ -122,7 +120,7 @@ fun CreateTournamentScreen (
                     coroutineScope.launch {
                         viewModel.saveItem()
                     }
-                    navigateToRankings()
+                    onNavigateUp()
                           },
                 modifier = Modifier.widthIn(min = 300.dp),
                 enabled = viewModel.isValid
@@ -182,7 +180,6 @@ fun CreateTournamentPreview() {
     TournamentManagerTheme {
         CreateTournamentScreen(
             onNavigateUp = {},
-            navigateToRankings = {}
         )
     }
 }

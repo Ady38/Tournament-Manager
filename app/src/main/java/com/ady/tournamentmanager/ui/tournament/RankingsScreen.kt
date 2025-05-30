@@ -10,15 +10,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ady.tournamentmanager.R
 import com.ady.tournamentmanager.TournamentManagerTopAppBar
+import com.ady.tournamentmanager.data.tournament.Tournament
+import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 
 object RankingsDestination : NavigationDestination {
@@ -30,13 +32,19 @@ object RankingsDestination : NavigationDestination {
 @Composable
 fun RankingsScreen (
     onNavigateUp: () -> Unit,
+    viewModel: RankingsViewModel = viewModel(factory = ViewModelProvider.Factory),
+    tournament: Tournament = Tournament(name = "", firstStage = "", secondStage = "")
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-
+    var tournament = tournament
+    //if (tournament.name == "") {
+    //    val tournaments = viewModel.getDatabase().collectAsState(initial = emptyList())
+    //    tournament = tournaments.value.lastOrNull() ?: Tournament(name = "", firstStage = "", secondStage = "")
+    //}
     Scaffold (
         topBar = {
             TournamentManagerTopAppBar(
-                title = "Meno Turnaja - " + stringResource(RankingsDestination.titleRes),
+                title = tournament.name + " " + stringResource(RankingsDestination.titleRes),
                 canNavigateBack = true,
                 scrollBehavior = scrollBehavior,
                 navigateUp = onNavigateUp
