@@ -5,6 +5,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.ady.tournamentmanager.TournamentManagerApplication
+import com.ady.tournamentmanager.ui.add_player.AddPlayerViewModel
 import com.ady.tournamentmanager.ui.create.CreateTournamentViewModel
 import com.ady.tournamentmanager.ui.load.LoadTournamentViewModel
 import com.ady.tournamentmanager.ui.tournament.RankingsViewModel
@@ -19,6 +20,9 @@ object ViewModelProvider {
         }
         initializer {
             LoadTournamentViewModel(tournamentManagerApplication().container.tournamentRepository)
+        }
+        initializer {
+            AddPlayerViewModel(tournamentManagerApplication().container.tournamentPlayerRepository)
         }
     }
 }

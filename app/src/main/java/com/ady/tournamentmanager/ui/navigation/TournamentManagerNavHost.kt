@@ -9,6 +9,8 @@ import com.ady.tournamentmanager.ui.start.StartDestination
 import com.ady.tournamentmanager.ui.start.StartScreen
 import androidx.navigation.compose.composable
 import com.ady.tournamentmanager.ui.ViewModelProvider
+import com.ady.tournamentmanager.ui.add_player.AddPlayerDestination
+import com.ady.tournamentmanager.ui.add_player.AddPlayerScreen
 import com.ady.tournamentmanager.ui.create.CreateTournamentDestination
 import com.ady.tournamentmanager.ui.create.CreateTournamentScreen
 import com.ady.tournamentmanager.ui.load.LoadTournamentDestination
@@ -50,6 +52,13 @@ fun TournamentManagerNavHost(
         composable (route = RankingsDestination.route) {
             RankingsScreen(
                 onNavigateUp = { navController.navigate(StartDestination.route)},
+                navigateToPlayerAdd = { navController.navigate(AddPlayerDestination.route) },
+                tournament = loadTournamentViewModel.selectedTournament
+            )
+        }
+        composable (route = AddPlayerDestination.route) {
+            AddPlayerScreen(
+                onNavigateUp = { navController.navigate(RankingsDestination.route) },
                 tournament = loadTournamentViewModel.selectedTournament
             )
         }

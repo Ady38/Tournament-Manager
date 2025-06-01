@@ -20,6 +20,4 @@ abstract class TournamentDatabase : RoomDatabase() {
             }
         }
     }
-
-
 }

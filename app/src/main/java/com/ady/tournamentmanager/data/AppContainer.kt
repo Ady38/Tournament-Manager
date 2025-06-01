@@ -19,14 +19,21 @@ package com.ady.tournamentmanager.data
 import android.content.Context
 import com.ady.tournamentmanager.data.tournament.OfflineTournamentRepository
 import com.ady.tournamentmanager.data.tournament.TournamentRepository
+import com.ady.tournamentmanager.data.tournament_player.OfflineTournamentPlayerRepository
+import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase
+import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerRepository
 
 
 interface AppContainer {
     val tournamentRepository: TournamentRepository
+    val tournamentPlayerRepository: TournamentPlayerRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
     override val tournamentRepository: TournamentRepository by lazy {
         OfflineTournamentRepository(TournamentDatabase.getDatabase(context).tournamentDao())
+    }
+    override val tournamentPlayerRepository: TournamentPlayerRepository by lazy {
+        OfflineTournamentPlayerRepository(TournamentPlayerDatabase.getDatabase(context).tournamentPlayerDao())
     }
 }

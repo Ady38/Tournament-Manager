@@ -17,4 +17,6 @@
     <string name="delete_tournament_confirmation">"Do you really want to delete tournament "</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
+    <string name="add_player_title">Add Player</string>
+    <string name="surname_input">Surname</string>
 </resources>
