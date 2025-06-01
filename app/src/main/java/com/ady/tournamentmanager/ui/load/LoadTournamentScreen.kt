@@ -65,8 +65,6 @@ fun LoadTournamentScreen (
                 viewModel.selectTournament(it)
                 navigateToRankings()
             },
-            modifier = Modifier
-                .padding(innerPadding),
             onItemHold = { viewModel.deleteTournament(it)
             },
             contentPadding = innerPadding,
