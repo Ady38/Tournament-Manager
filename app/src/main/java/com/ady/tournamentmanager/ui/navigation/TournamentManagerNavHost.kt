@@ -16,6 +16,8 @@ import com.ady.tournamentmanager.ui.create.CreateTournamentScreen
 import com.ady.tournamentmanager.ui.load.LoadTournamentDestination
 import com.ady.tournamentmanager.ui.load.LoadTournamentViewModel
 import com.ady.tournamentmanager.ui.load.LoadTournamentScreen
+import com.ady.tournamentmanager.ui.pairings.PairingsDestination
+import com.ady.tournamentmanager.ui.pairings.PairingsScreen
 import com.ady.tournamentmanager.ui.tournament.RankingsDestination
 import com.ady.tournamentmanager.ui.tournament.RankingsScreen
 
@@ -53,12 +55,19 @@ fun TournamentManagerNavHost(
             RankingsScreen(
                 onNavigateUp = { navController.navigate(StartDestination.route)},
                 navigateToPlayerAdd = { navController.navigate(AddPlayerDestination.route) },
+                navigateToPairings = { navController.navigate(PairingsDestination.route) },
                 tournament = loadTournamentViewModel.selectedTournament
             )
         }
         composable (route = AddPlayerDestination.route) {
             AddPlayerScreen(
                 onNavigateUp = { navController.navigate(RankingsDestination.route) },
+                tournament = loadTournamentViewModel.selectedTournament
+            )
+        }
+        composable(route = PairingsDestination.route) {
+            PairingsScreen(
+                onNavigateUp = { navController.navigate(AddPlayerDestination.route) },
                 tournament = loadTournamentViewModel.selectedTournament
             )
         }

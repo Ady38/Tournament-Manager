@@ -6,17 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -34,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -57,6 +52,7 @@ object RankingsDestination : NavigationDestination {
 fun RankingsScreen (
     onNavigateUp: () -> Unit,
     navigateToPlayerAdd: () -> Unit,
+    navigateToPairings: () -> Unit,
     tournament: Tournament,
     viewModel: RankingsViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
@@ -73,20 +69,30 @@ fun RankingsScreen (
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToPlayerAdd,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier
-                    .padding(
-                        end = WindowInsets.safeDrawing.asPaddingValues()
-                            .calculateEndPadding(LocalLayoutDirection.current)
-                    )
+            Column(
             ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.add_player_title)
-                )
+                FloatingActionButton(
+                    onClick = navigateToPlayerAdd,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.add_player_title)
+                    )
+                }
+                FloatingActionButton(
+                    onClick = navigateToPairings,
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = stringResource(R.string.generate_pairings)
+                    )
+                }
             }
+
         },
     ) { innerPadding ->
         Column (
@@ -127,8 +133,7 @@ fun RankingsBody(
             TournamentList(
                 playerList = playerList,
                 onItemHold = { onItemHold(it) },
-                contentPadding = contentPadding,
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+                contentPadding = contentPadding
             )
         }
     }
@@ -149,8 +154,7 @@ fun TournamentList(
             TournamentPlayerListItem(
                 player = item,
                 onItemHold = { onItemHold(item) },
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small))
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
     }

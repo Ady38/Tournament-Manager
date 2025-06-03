@@ -96,7 +96,6 @@ fun LoadBody(
                 onItemClick = { onItemClick(it.id) },
                 onItemHold = { onItemHold(it) },
                 contentPadding = contentPadding,
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
         }
     }
@@ -119,8 +118,7 @@ fun TournamentList(
                 tournament = item,
                 onItemClick = { onItemClick(item) },
                 onItemHold = { onItemHold(item) },
-                modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small))
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
     }

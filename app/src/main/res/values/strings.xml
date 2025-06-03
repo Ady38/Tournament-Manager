@@ -19,6 +19,7 @@
     <string name="cancel">Cancel</string>
     <string name="add_player_title">Add Player</string>
     <string name="surname_input">Surname</string>
-    <string name="delete_player_confirmation">Do you really want to delete player</string>
+    <string name="delete_player_confirmation">Do you really want to delete player </string>
     <string name="no_player_description">No player in tournament</string>
+    <string name="generate_pairings">Generate Pairings</string>
 </resources>
