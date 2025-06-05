@@ -26,7 +26,7 @@ object ViewModelProvider {
             AddPlayerViewModel(tournamentManagerApplication().container.tournamentPlayerRepository)
         }
         initializer {
-            PairingsViewModel(tournamentManagerApplication().container.tournamentRepository)
+            PairingsViewModel(tournamentManagerApplication().container.tournamentRepository, tournamentManagerApplication().container.tournamentPlayerRepository, tournamentManagerApplication().container.matchRepository)
         }
     }
 }

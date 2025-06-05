@@ -2,9 +2,12 @@ package com.ady.tournamentmanager.ui.pairings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
@@ -20,6 +23,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,7 +38,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ady.tournamentmanager.R
 import com.ady.tournamentmanager.TournamentManagerTopAppBar
+import com.ady.tournamentmanager.data.match.Match
 import com.ady.tournamentmanager.data.tournament.Tournament
+import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
 import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 
@@ -50,6 +57,7 @@ fun PairingsScreen (
     tournament: Tournament,
     viewModel: PairingsViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
+    viewModel.tournament = tournament
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold (
         topBar = {
@@ -83,8 +91,11 @@ fun PairingsScreen (
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MatchCard()
-            MatchCard()
+            MatchList(
+                matchList = viewModel.matchUiState.collectAsState().value.itemList,
+                contentPadding = innerPadding,
+                viewModel = viewModel
+            )
         }
     }
 }
@@ -135,9 +146,42 @@ fun DropDownMenu(
 }
 
 @Composable
-fun MatchCard() {
+fun MatchList(
+    matchList: List<Match>,
+    contentPadding: PaddingValues,
+    viewModel: PairingsViewModel,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = contentPadding
+    ) {
+        items(items = matchList, key = { it.id }) { item ->
+            MatchCard(
+                item = item,
+                viewModel = viewModel
+            )
+        }
+    }
+}
+
+@Composable
+fun MatchCard(
+    item: Match,
+    viewModel: PairingsViewModel,
+    modifier: Modifier = Modifier
+) {
+    var player1 by remember { mutableStateOf<TournamentPlayer?>(null) }
+    var player2 by remember { mutableStateOf<TournamentPlayer?>(null) }
+
+    LaunchedEffect(item) {
+        player1 = viewModel.getPlayer1FromMatch(item)
+        player2 = viewModel.getPlayer2FromMatch(item)
+    }
+
+
     Card(
-        modifier = Modifier
+        modifier = modifier
             .padding(10.dp)
             .fillMaxWidth()
     ) {
@@ -149,7 +193,7 @@ fun MatchCard() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Player 1",
+                text = player1?.name ?: "BYE",
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .weight(1f)
@@ -162,13 +206,7 @@ fun MatchCard() {
                     .align(Alignment.CenterVertically)
                     .weight(1f)
             )
-            Text(
-                text = "Player 2",
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .weight(1f),
-                textAlign = TextAlign.End
-            )
+            Text(text = player2?.name ?: "BYE", modifier = Modifier.align(Alignment.CenterVertically).weight(1f), textAlign = TextAlign.End)
         }
     }
 }
