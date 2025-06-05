@@ -67,7 +67,8 @@ fun TournamentManagerNavHost(
         }
         composable(route = PairingsDestination.route) {
             PairingsScreen(
-                onNavigateUp = { navController.navigate(AddPlayerDestination.route) },
+                onNavigateUp = { navController.navigate(RankingsDestination.route) },
+                navigateToNewRound = { navController.navigate(PairingsDestination.route) },
                 tournament = loadTournamentViewModel.selectedTournament
             )
         }

@@ -8,6 +8,7 @@ import com.ady.tournamentmanager.TournamentManagerApplication
 import com.ady.tournamentmanager.ui.add_player.AddPlayerViewModel
 import com.ady.tournamentmanager.ui.create.CreateTournamentViewModel
 import com.ady.tournamentmanager.ui.load.LoadTournamentViewModel
+import com.ady.tournamentmanager.ui.pairings.PairingsViewModel
 import com.ady.tournamentmanager.ui.tournament.RankingsViewModel
 
 object ViewModelProvider {
@@ -23,6 +24,9 @@ object ViewModelProvider {
         }
         initializer {
             AddPlayerViewModel(tournamentManagerApplication().container.tournamentPlayerRepository)
+        }
+        initializer {
+            PairingsViewModel(tournamentManagerApplication().container.tournamentRepository)
         }
     }
 }
