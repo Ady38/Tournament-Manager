@@ -17,6 +17,9 @@
 package com.ady.tournamentmanager.data
 
 import android.content.Context
+import com.ady.tournamentmanager.data.match.MatchDatabase
+import com.ady.tournamentmanager.data.match.MatchRepository
+import com.ady.tournamentmanager.data.match.OfflineMatchRepository
 import com.ady.tournamentmanager.data.tournament.OfflineTournamentRepository
 import com.ady.tournamentmanager.data.tournament.TournamentRepository
 import com.ady.tournamentmanager.data.tournament_player.OfflineTournamentPlayerRepository
@@ -27,6 +30,7 @@ import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerReposito
 interface AppContainer {
     val tournamentRepository: TournamentRepository
     val tournamentPlayerRepository: TournamentPlayerRepository
+    val matchRepository: MatchRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
@@ -35,5 +39,9 @@ class AppDataContainer(private val context: Context) : AppContainer {
     }
     override val tournamentPlayerRepository: TournamentPlayerRepository by lazy {
         OfflineTournamentPlayerRepository(TournamentPlayerDatabase.getDatabase(context).tournamentPlayerDao())
+    }
+
+    override val matchRepository: MatchRepository by lazy {
+        OfflineMatchRepository(MatchDatabase.getDatabase(context).matchDao())
     }
 }
