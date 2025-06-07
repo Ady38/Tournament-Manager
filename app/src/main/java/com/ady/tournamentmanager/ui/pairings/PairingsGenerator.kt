@@ -16,9 +16,9 @@ class PairingsGenerator(
         playerList: List<TournamentPlayer>,
         matchRepository: MatchRepository
     ) {
-        if (tournament.firstStage == "single elimination") {
+        if (tournament.firstStage == "Single Elminiation"  && tournament.round != 0) {
             playerList.filter({ player ->
-                player.points == tournament.round.toDouble()
+                player.points == tournament.round.toDouble() - 1
             })
             val shuffledPlayers = playerList.shuffled()
             for (i in 0 until shuffledPlayers.size step 2) {

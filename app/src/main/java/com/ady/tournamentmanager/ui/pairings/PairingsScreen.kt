@@ -62,6 +62,7 @@ fun PairingsScreen (
     viewModel.tournament = tournament
     val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val tournamentPlayerUiState by viewModel.tournamentPlayerUiState.collectAsState()
     Scaffold (
         topBar = {
             TournamentManagerTopAppBar(
@@ -76,10 +77,10 @@ fun PairingsScreen (
             ){
                 FloatingActionButton(
                     onClick = {
-                        tournament.round++
+                        tournament.round = 0
                         viewModel.updateTournament(tournament)
                         coroutineScope.launch {
-                            viewModel.generatePairings()
+                            viewModel.generatePairings(tournamentPlayerUiState.itemList)
                         }
                         navigateToNewRound()
                     },
@@ -210,8 +211,16 @@ fun MatchCard(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            var player1Text = stringResource(R.string.bye)
+            var player2Text = stringResource(R.string.bye)
+            if(player1 != null){
+                player1Text = player1!!.name.first() + stringResource(R.string.dot) + player1!!.surname
+            }
+            if(player2 != null){
+                player2Text = player2!!.name.first() + stringResource(R.string.dot) + player2!!.surname
+            }
             Text(
-                text = player1?.name ?: "BYE",
+                text = player1Text,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .weight(1f)
@@ -224,9 +233,11 @@ fun MatchCard(
                     .align(Alignment.CenterVertically)
                     .weight(1f)
             )
-            Text(text = player2?.name ?: "BYE", modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .weight(1f), textAlign = TextAlign.End)
+            Text(
+                text = player2Text,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .weight(1f), textAlign = TextAlign.End)
         }
     }
 }

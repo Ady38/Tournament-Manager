@@ -8,7 +8,6 @@ import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament.TournamentRepository
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerRepository
-import com.ady.tournamentmanager.ui.tournament.TournamentPlayerUiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -55,14 +54,18 @@ class PairingsViewModel(
         }.stateIn(scope = viewModelScope).value
     }
 
-    suspend fun generatePairings() {
-        PairingsGenerator().generatePairings(tournament, tournamentPlayerRepository.getAllItemsStream().map { TournamentPlayerUiState(it.filter { player -> player.tournament == tournament.id }) }
+    suspend fun generatePairings(itemList: List<TournamentPlayer>) {
+        PairingsGenerator().generatePairings(tournament, itemList, matchRepository)
+    }
+
+    val tournamentPlayerUiState: StateFlow<TournamentPlayerUiState> =
+        tournamentPlayerRepository.getAllItemsStream().map { TournamentPlayerUiState(it.filter { player -> player.tournament == tournament.id }) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
                 initialValue = TournamentPlayerUiState()
-            ).value.itemList, matchRepository)
-    }
+            )
 }
 
 data class MatchUiState(val itemList: List<Match> = listOf())
+data class TournamentPlayerUiState(val itemList: List<TournamentPlayer> = listOf())

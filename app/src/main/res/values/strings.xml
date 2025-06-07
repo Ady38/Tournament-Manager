@@ -29,4 +29,6 @@
     <string name="choose_first_phase">Choose first phase</string>
     <string name="_1">1</string>
     <string name="_2">2</string>
+    <string name="bye">BYE</string>
+    <string name="dot">. </string>
 </resources>
