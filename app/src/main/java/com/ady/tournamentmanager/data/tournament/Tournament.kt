@@ -9,5 +9,5 @@ data class Tournament(
     val name: String,
     val firstStage: String,
     val secondStage: String,
-    var round: Int = 1,
+    var round: Int = 0,
 )

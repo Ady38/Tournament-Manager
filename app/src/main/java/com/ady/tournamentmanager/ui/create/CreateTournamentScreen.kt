@@ -91,24 +91,24 @@ fun CreateTournamentScreen (
                 text = "Choose number of phases"
             )
             DropDownMenu(
-                list = listOf("1","2"),
+                list = listOf(stringResource(R.string._1), stringResource(R.string._2)),
                 onTextChange = { viewModel.updatePhasesNumber(it) },
                 value = viewModel.phases
             )
             Text(
-                text = "Choose first phase"
+                text = stringResource(R.string.choose_first_phase)
             )
             DropDownMenu(
-                listOf("Round Robin", "Single Elminiation"),
+                listOf(stringResource(R.string.round_robin), stringResource(R.string.single_elminiation)),
                 onTextChange = { viewModel.updateFirstPhase(it) },
                 value = viewModel.firstPhase
             )
             if (viewModel.phases == "2"){
                 Text(
-                    text = "Choose second phase"
+                    text = stringResource(R.string.choose_second_phase)
                 )
                 DropDownMenu(
-                    listOf("Single Elminiation"),
+                    listOf(stringResource(R.string.single_elminiation)),
                     onTextChange = { viewModel.updateSecondPhase(it) },
                     value = viewModel.secondPhase
                 )

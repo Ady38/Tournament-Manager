@@ -22,4 +22,11 @@
     <string name="delete_player_confirmation">Do you really want to delete player </string>
     <string name="no_player_description">No player in tournament</string>
     <string name="generate_pairings">Generate Pairings</string>
+    <string name="timer">Timer</string>
+    <string name="choose_second_phase">Choose second phase</string>
+    <string name="single_elminiation">Single Elminiation</string>
+    <string name="round_robin">Round Robin</string>
+    <string name="choose_first_phase">Choose first phase</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
 </resources>

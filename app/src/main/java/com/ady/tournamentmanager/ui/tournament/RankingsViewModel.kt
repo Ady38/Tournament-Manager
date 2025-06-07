@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class RankingsViewModel(private val tournamentPlayerRepository: TournamentPlayerRepository) : ViewModel() {
 
     var tournament = Tournament(name = "", firstStage = "", secondStage = "")
+    var playerCount = 0;
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
@@ -22,6 +23,7 @@ class RankingsViewModel(private val tournamentPlayerRepository: TournamentPlayer
     fun deletePlayer(player: TournamentPlayer) {
         viewModelScope.launch {
             tournamentPlayerRepository.deleteItem(player)
+            playerCount--
         }
     }
 

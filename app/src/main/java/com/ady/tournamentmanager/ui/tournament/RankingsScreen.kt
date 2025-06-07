@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -57,6 +59,7 @@ fun RankingsScreen (
     viewModel: RankingsViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
     viewModel.tournament = tournament
+    viewModel.playerCount = viewModel.tournamentPlayerUiState.collectAsState().value.itemList.size
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold (
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -71,26 +74,40 @@ fun RankingsScreen (
         floatingActionButton = {
             Column(
             ) {
-                FloatingActionButton(
-                    onClick = navigateToPlayerAdd,
+                ExtendedFloatingActionButton(
+                    onClick = {
+                        if (viewModel.playerCount < 16) {
+                            navigateToPlayerAdd()
+                        }},
                     shape = MaterialTheme.shapes.medium,
+                    containerColor = if (viewModel.playerCount < 16) MaterialTheme.colorScheme.primary else Color.Gray,
+                    text = {
+                        Text(text = viewModel.playerCount.toString(), color = Color.White)
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = stringResource(R.string.add_player_title)
+                        )
+                    },
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = stringResource(R.string.add_player_title)
-                    )
-                }
-                FloatingActionButton(
+
+                )
+                ExtendedFloatingActionButton(
                     onClick = navigateToPairings,
                     shape = MaterialTheme.shapes.medium,
+                    text = {
+                        Text(viewModel.tournament.round.toString(), color = MaterialTheme.colorScheme.primary)
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = stringResource(R.string.generate_pairings)
+                        )
+                    },
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = stringResource(R.string.generate_pairings)
-                    )
-                }
+
+                )
             }
 
         },
@@ -146,6 +163,7 @@ fun TournamentList(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
+    var i: Int = 0;
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding
@@ -154,6 +172,7 @@ fun TournamentList(
             TournamentPlayerListItem(
                 player = item,
                 onItemHold = { onItemHold(item) },
+                ranking = ++i,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
             )
         }
@@ -165,6 +184,7 @@ fun TournamentList(
 fun TournamentPlayerListItem(
     player: TournamentPlayer,
     onItemHold: (TournamentPlayer) -> Unit,
+    ranking: Int,
     modifier: Modifier = Modifier
 ) { val showDialog = remember { mutableStateOf(false) }
 
@@ -192,14 +212,16 @@ fun TournamentPlayerListItem(
         )
     }
     Card(
-        modifier = modifier.combinedClickable (
-            onClick = {},
-            onLongClick = { showDialog.value = true }
-        ).fillMaxWidth()
+        modifier = modifier
+            .combinedClickable(
+                onClick = {},
+                onLongClick = { showDialog.value = true }
+            )
+            .fillMaxWidth()
     ){
         Column {
             Row {
-                Text(text = player.name + " " + player.surname, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+                Text(text = ranking.toString() + ". " + player.name + " " + player.surname, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
                 Text(text = player.points.toString(), modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)), textAlign = TextAlign.End)
             }
         }

@@ -28,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,7 @@ import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
 import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
+import kotlinx.coroutines.launch
 
 object PairingsDestination : NavigationDestination {
     override val route = "pairings"
@@ -58,6 +60,7 @@ fun PairingsScreen (
     viewModel: PairingsViewModel = viewModel(factory = ViewModelProvider.Factory)
 ) {
     viewModel.tournament = tournament
+    val coroutineScope = rememberCoroutineScope()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     Scaffold (
         topBar = {
@@ -69,25 +72,40 @@ fun PairingsScreen (
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    tournament.round++
-                    viewModel.updateTournament(tournament)
-                    navigateToNewRound()
-                          },
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
-            ) {
-                Icon(
-                    imageVector = Icons.Default.PlayArrow,
-                    contentDescription = stringResource(R.string.generate_pairings)
-                )
+            Column(
+            ){
+                FloatingActionButton(
+                    onClick = {
+                        tournament.round++
+                        viewModel.updateTournament(tournament)
+                        coroutineScope.launch {
+                            viewModel.generatePairings()
+                        }
+                        navigateToNewRound()
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = stringResource(R.string.generate_pairings)
+                    )
+                }
+                FloatingActionButton(
+                    onClick = {
+                    },
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                ) {
+                    Text(text = stringResource(R.string.timer))
+                }
             }
         }
     ) { innerPadding ->
         Column (
             modifier = Modifier
-                .fillMaxWidth().padding(innerPadding),
+                .fillMaxWidth()
+                .padding(innerPadding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -206,7 +224,9 @@ fun MatchCard(
                     .align(Alignment.CenterVertically)
                     .weight(1f)
             )
-            Text(text = player2?.name ?: "BYE", modifier = Modifier.align(Alignment.CenterVertically).weight(1f), textAlign = TextAlign.End)
+            Text(text = player2?.name ?: "BYE", modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .weight(1f), textAlign = TextAlign.End)
         }
     }
 }
