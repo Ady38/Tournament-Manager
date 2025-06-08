@@ -11,6 +11,6 @@ data class Match(
     var round: Int,
     val player1: Int,
     val player2: Int,
-    val score1: Int = 0,
-    val score2: Int = 0,
+    val score1: Double = 0.0,
+    val score2: Double = 0.0,
 )

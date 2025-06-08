@@ -31,4 +31,9 @@
     <string name="_2">2</string>
     <string name="bye">BYE</string>
     <string name="dot">. </string>
+    <string name="finished">Tournament has been finished, see rankings for standings</string>
+    <string name="space">" "</string>
+    <string name="Win">1:0</string>
+    <string name="draw">0.5:0.5</string>
+    <string name="Lose">0:1</string>
 </resources>

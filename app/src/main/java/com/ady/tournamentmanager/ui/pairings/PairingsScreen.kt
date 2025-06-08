@@ -32,6 +32,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -77,7 +78,7 @@ fun PairingsScreen (
             ){
                 FloatingActionButton(
                     onClick = {
-                        tournament.round = 0
+                        tournament.round++
                         viewModel.updateTournament(tournament)
                         coroutineScope.launch {
                             viewModel.generatePairings(tournamentPlayerUiState.itemList)
@@ -95,6 +96,7 @@ fun PairingsScreen (
                 FloatingActionButton(
                     onClick = {
                     },
+                    containerColor = Color.Gray,
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
                 ) {
@@ -110,11 +112,16 @@ fun PairingsScreen (
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MatchList(
-                matchList = viewModel.matchUiState.collectAsState().value.itemList,
-                contentPadding = innerPadding,
-                viewModel = viewModel
-            )
+            val matches = viewModel.matchUiState.collectAsState().value.itemList
+            if(matches.isNotEmpty()) {
+                MatchList(
+                    matchList = matches,
+                    contentPadding = innerPadding,
+                    viewModel = viewModel
+                )
+            } else {
+                Text(text = stringResource(R.string.finished))
+            }
         }
     }
 }
@@ -198,7 +205,6 @@ fun MatchCard(
         player2 = viewModel.getPlayer2FromMatch(item)
     }
 
-
     Card(
         modifier = modifier
             .padding(10.dp)
@@ -213,11 +219,19 @@ fun MatchCard(
         ) {
             var player1Text = stringResource(R.string.bye)
             var player2Text = stringResource(R.string.bye)
+            var resultText = ""
             if(player1 != null){
                 player1Text = player1!!.name.first() + stringResource(R.string.dot) + player1!!.surname
             }
             if(player2 != null){
                 player2Text = player2!!.name.first() + stringResource(R.string.dot) + player2!!.surname
+            }
+            resultText = item.score1.toString() + ":" + item.score2.toString()
+            var list = listOf(stringResource(R.string.Win), stringResource(R.string.draw),
+                stringResource(R.string.Lose)
+            )
+            if(viewModel.tournament.firstStage == "Single Elminiation"){
+                list = listOf(stringResource(R.string.Win), stringResource(R.string.Lose))
             }
             Text(
                 text = player1Text,
@@ -226,9 +240,19 @@ fun MatchCard(
                     .weight(1f)
             )
             DropDownMenu(
-                listOf("1:0", "0.5:0.5", "0:1"),
-                onTextChange = {},
-                value = "",
+                list = list,
+                onTextChange = {
+                    if(it == "1:0"){
+                        viewModel.updateMatch(Match(id = item.id, player1 = item.player1, player2 = item.player2, tournament = item.tournament, round = item.round, score1 = 1.0, score2 = 0.0 ))
+                    }
+                    if(it == "0.5:0.5"){
+                        viewModel.updateMatch(Match(id = item.id, player1 = item.player1, player2 = item.player2, tournament = item.tournament, round = item.round, score1 = 0.5, score2 = 0.5 ))
+                    }
+                    if(it == "0:1") {
+                        viewModel.updateMatch(Match(id = item.id, player1 = item.player1, player2 = item.player2, tournament = item.tournament, round = item.round, score1 = 0.0, score2 = 1.0 ))
+                    }
+                },
+                value = resultText,
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
                     .weight(1f)

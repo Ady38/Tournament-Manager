@@ -10,10 +10,10 @@ import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerReposito
 
 class AddPlayerViewModel(private val tournamentPlayerRepository: TournamentPlayerRepository) : ViewModel() {
 
-    var name by mutableStateOf("")
-    var surname by mutableStateOf("")
-    var tournament by mutableStateOf(Tournament(0, "", "", ""))
-    var isValid by mutableStateOf(false)
+    var name = ""
+    var surname = ""
+    var tournament = Tournament(0, "", "", "")
+    var isValid = false
 
     fun updateName(newName : String) {
         name = newName

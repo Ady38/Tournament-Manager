@@ -221,7 +221,7 @@ fun TournamentPlayerListItem(
     ){
         Column {
             Row {
-                Text(text = ranking.toString() + ". " + player.name + " " + player.surname, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+                Text(text = ranking.toString() + stringResource(R.string.dot) + player.name + stringResource(R.string.space) + player.surname, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
                 Text(text = player.points.toString(), modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)), textAlign = TextAlign.End)
             }
         }
