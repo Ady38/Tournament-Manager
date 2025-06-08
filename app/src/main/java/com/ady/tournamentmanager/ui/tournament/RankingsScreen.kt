@@ -82,8 +82,7 @@ fun RankingsScreen (
             )
         },
         floatingActionButton = {
-            Column(
-            ) {
+            Column{
                 ExtendedFloatingActionButton(
                     onClick = {
                         if (viewModel.playerCount < 16 && !viewModel.tournament.finished) {

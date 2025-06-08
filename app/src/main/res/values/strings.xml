@@ -36,4 +36,5 @@
     <string name="Win">1:0</string>
     <string name="draw">0.5:0.5</string>
     <string name="Lose">0:1</string>
+    <string name="DoubleDot">:</string>
 </resources>

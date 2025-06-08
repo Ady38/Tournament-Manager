@@ -15,9 +15,9 @@ suspend fun generatePairings(
 ) {
     var players = playerList
     if (tournament.firstStage == "Single Elminiation"  && tournament.round != 0) {
-        players = playerList.filter({ player ->
+        players = playerList.filter{ player ->
             player.points == tournament.round.toDouble() - 1
-        })
+        }
         for(player in playerList) {
             print(player.points.toString() + " " + (tournament.round.toDouble() - 1).toString())
             println(player.points == tournament.round.toDouble() - 1)

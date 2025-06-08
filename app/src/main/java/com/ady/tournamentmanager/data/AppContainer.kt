@@ -21,6 +21,7 @@ import com.ady.tournamentmanager.data.match.MatchDatabase
 import com.ady.tournamentmanager.data.match.MatchRepository
 import com.ady.tournamentmanager.data.match.OfflineMatchRepository
 import com.ady.tournamentmanager.data.tournament.OfflineTournamentRepository
+import com.ady.tournamentmanager.data.tournament.TournamentDatabase
 import com.ady.tournamentmanager.data.tournament.TournamentRepository
 import com.ady.tournamentmanager.data.tournament_player.OfflineTournamentPlayerRepository
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase
