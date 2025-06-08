@@ -19,9 +19,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -80,13 +84,16 @@ fun PairingsScreen (
             Column{
                 FloatingActionButton(
                     onClick = {
-                        tournament.round++
-                        viewModel.updateTournament(tournament)
-                        coroutineScope.launch {
-                            viewModel.generatePairings(tournamentPlayerUiState.itemList)
+                        if (!viewModel.tournament.finished) {
+                            tournament.round++
+                            viewModel.updateTournament(tournament)
+                            coroutineScope.launch {
+                                viewModel.generatePairings(tournamentPlayerUiState.itemList)
+                            }
+                            navigateToNewRound()
                         }
-                        navigateToNewRound()
                     },
+                    containerColor = if (!viewModel.tournament.finished) MaterialTheme.colorScheme.primary else Color.Gray,
                     shape = MaterialTheme.shapes.medium,
                     modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
                 ) {
@@ -123,6 +130,8 @@ fun PairingsScreen (
                 )
             } else {
                 Text(text = stringResource(R.string.finished))
+                viewModel.tournament.finished = true
+                viewModel.updateTournament(viewModel.tournament)
             }
         }
     }
@@ -160,11 +169,10 @@ fun MatchCard(
     viewModel: PairingsViewModel,
     modifier: Modifier = Modifier
 ) {
-    var player1: TournamentPlayer? = null
-    var player2: TournamentPlayer? = null
-    val coroutineScope = rememberCoroutineScope()
+    var player1 by remember { mutableStateOf<TournamentPlayer?>(null) }
+    var player2 by remember { mutableStateOf<TournamentPlayer?>(null) }
 
-    coroutineScope.launch {
+    LaunchedEffect(item) {
         player1 = viewModel.getPlayer1FromMatch(item)
         player2 = viewModel.getPlayer2FromMatch(item)
     }

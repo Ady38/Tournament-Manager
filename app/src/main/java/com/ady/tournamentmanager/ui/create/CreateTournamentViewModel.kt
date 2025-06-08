@@ -1,5 +1,8 @@
 package com.ady.tournamentmanager.ui.create
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament.TournamentRepository
@@ -13,11 +16,11 @@ import com.ady.tournamentmanager.data.tournament.TournamentRepository
  */
 class CreateTournamentViewModel(private val tournamentRepository: TournamentRepository) : ViewModel() {
 
-    var name = ""
-    var phases = ""
-    var firstPhase = ""
-    var secondPhase = ""
-    var isValid = false
+    var name by mutableStateOf("")
+    var phases by mutableStateOf("")
+    var firstPhase by mutableStateOf("")
+    var secondPhase by mutableStateOf("")
+    var isValid by mutableStateOf(false)
 
     /**
      * Funkcia ktora aktualizuje nazov turnaja

@@ -19,4 +19,5 @@ data class Tournament(
     val firstStage: String,
     val secondStage: String,
     var round: Int = 0,
+    var finished: Boolean = false
 )

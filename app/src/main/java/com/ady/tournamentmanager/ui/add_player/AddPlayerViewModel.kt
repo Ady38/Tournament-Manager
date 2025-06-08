@@ -1,5 +1,8 @@
 package com.ady.tournamentmanager.ui.add_player
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
@@ -14,10 +17,10 @@ import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerReposito
  */
 class AddPlayerViewModel(private val tournamentPlayerRepository: TournamentPlayerRepository) : ViewModel() {
 
-    var name = ""
-    var surname = ""
-    var tournament = Tournament(0, "", "", "")
-    var isValid = false
+    var name by mutableStateOf("")
+    var surname by mutableStateOf("")
+    var tournament by mutableStateOf(Tournament(0, "", "", ""))
+    var isValid by mutableStateOf(false)
 
     /**
      * Funkcia ktora aktualizuje meno hraca

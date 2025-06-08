@@ -86,11 +86,11 @@ fun RankingsScreen (
             ) {
                 ExtendedFloatingActionButton(
                     onClick = {
-                        if (viewModel.playerCount < 16) {
+                        if (viewModel.playerCount < 16 && !viewModel.tournament.finished) {
                             navigateToPlayerAdd()
                         }},
                     shape = MaterialTheme.shapes.medium,
-                    containerColor = if (viewModel.playerCount < 16) MaterialTheme.colorScheme.primary else Color.Gray,
+                    containerColor = if (viewModel.playerCount < 16 && !viewModel.tournament.finished) MaterialTheme.colorScheme.primary else Color.Gray,
                     text = {
                         Text(text = viewModel.playerCount.toString(), color = Color.White)
                     },
@@ -104,8 +104,13 @@ fun RankingsScreen (
 
                 )
                 ExtendedFloatingActionButton(
-                    onClick = navigateToPairings,
+                    onClick = {
+                        if (!viewModel.tournament.finished) {
+                            navigateToPairings()
+                        }
+                    },
                     shape = MaterialTheme.shapes.medium,
+                    containerColor = if (!viewModel.tournament.finished) MaterialTheme.colorScheme.primary else Color.Gray,
                     text = {
                         Text(viewModel.tournament.round.toString(), color = MaterialTheme.colorScheme.primary)
                     },
