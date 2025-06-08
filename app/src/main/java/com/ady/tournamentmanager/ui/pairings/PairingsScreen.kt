@@ -11,25 +11,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,13 +37,24 @@ import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
 import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
+import com.ady.tournamentmanager.utils.DropDownMenu
 import kotlinx.coroutines.launch
 
+/**
+ * Objekt pre navigaciu do obrazovky parovania
+ */
 object PairingsDestination : NavigationDestination {
     override val route = "pairings"
     override val titleRes = R.string.pairings
 }
 
+/**
+ * Funkcia ktora zobrazuje obrazovku parovania
+ * @param onNavigateUp Funkcia ktora sa vola pri stlaceni tlacidla spat
+ * @param navigateToNewRound Funkcia ktora sa vola pri vytvoreni noveho kola
+ * @param tournament Turnaj ktory sa bude parovat
+ * @param viewModel Instancia viewmodelu ktory je pouzity na parovanie
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PairingsScreen (
@@ -74,8 +77,7 @@ fun PairingsScreen (
             )
         },
         floatingActionButton = {
-            Column(
-            ){
+            Column{
                 FloatingActionButton(
                     onClick = {
                         tournament.round++
@@ -126,51 +128,9 @@ fun PairingsScreen (
     }
 }
 
-
-
-@Composable
-@OptIn(ExperimentalMaterial3Api::class)
-fun DropDownMenu(
-    list: List<String>,
-    onTextChange: (String) -> Unit,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    var isExpanded by remember { mutableStateOf(false)}
-
-    ExposedDropdownMenuBox(
-        expanded = isExpanded,
-        onExpandedChange = {isExpanded = !isExpanded },
-        modifier = modifier
-    ) {
-        TextField(
-            modifier = Modifier
-                .menuAnchor()
-                .fillMaxWidth(),
-            value = value,
-            onValueChange = { },
-            readOnly = true,
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-        )
-
-        ExposedDropdownMenu(
-            expanded = isExpanded,
-            onDismissRequest = { isExpanded = false}
-        ) {
-            list.forEachIndexed { index, text ->
-                DropdownMenuItem(
-                    text = {Text (text = text)},
-                    onClick = {
-                        onTextChange(list[index])
-                        isExpanded = false
-                    },
-                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                )
-            }
-        }
-    }
-}
-
+/**
+ * Funkcia ktora zobrazuje zoznam zapasov
+ */
 @Composable
 fun MatchList(
     matchList: List<Match>,
@@ -191,16 +151,20 @@ fun MatchList(
     }
 }
 
+/**
+ * Funkcia ktora zobrazuje jednotliveho hraca
+ */
 @Composable
 fun MatchCard(
     item: Match,
     viewModel: PairingsViewModel,
     modifier: Modifier = Modifier
 ) {
-    var player1 by remember { mutableStateOf<TournamentPlayer?>(null) }
-    var player2 by remember { mutableStateOf<TournamentPlayer?>(null) }
+    var player1: TournamentPlayer? = null
+    var player2: TournamentPlayer? = null
+    val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(item) {
+    coroutineScope.launch {
         player1 = viewModel.getPlayer1FromMatch(item)
         player2 = viewModel.getPlayer2FromMatch(item)
     }

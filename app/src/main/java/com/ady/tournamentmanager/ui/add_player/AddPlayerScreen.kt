@@ -32,11 +32,25 @@ import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 import kotlinx.coroutines.launch
 
+/**
+ * Objekt obashujuci data pre navigaciu do obrazovky pridania hraca
+ */
 object AddPlayerDestination : NavigationDestination {
     override val route = "add player"
     override val titleRes = R.string.add_player_title
 }
 
+
+/**
+ * Composable funkcia pre obrazovku pridania hraca.
+ *
+ * Tato obrazovka umoznuje hracovi pridat hraca do turnaja
+ *
+ * @param onNavigateUp funkcia ktora sa vola pri stlaceni tlacidla spat
+ * @param viewModel instancia [AddPlayerViewModel] ktora zabezpecuje logiku a stav obrazovky
+ *      pre pridavanie hraca, poskytovana z [ViewModelProvider]
+ * @param tournament [Tournament] do ktoreho bude hrac pridany
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPlayerScreen (

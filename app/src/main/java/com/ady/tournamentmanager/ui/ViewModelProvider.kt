@@ -11,6 +11,9 @@ import com.ady.tournamentmanager.ui.load.LoadTournamentViewModel
 import com.ady.tournamentmanager.ui.pairings.PairingsViewModel
 import com.ady.tournamentmanager.ui.tournament.RankingsViewModel
 
+/**
+ * Objekt pre vytvorenie viewmodelov
+ */
 object ViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
@@ -31,5 +34,8 @@ object ViewModelProvider {
     }
 }
 
+/**
+ * Funkcia ktora nastavi aplikaciu na aktualny proces aplikacie
+ */
 fun CreationExtras.tournamentManagerApplication(): TournamentManagerApplication =
     (this[AndroidViewModelFactory.APPLICATION_KEY] as TournamentManagerApplication)

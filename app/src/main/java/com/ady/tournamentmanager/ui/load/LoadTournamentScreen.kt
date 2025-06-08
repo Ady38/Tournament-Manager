@@ -35,11 +35,17 @@ import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.create.CreateTournamentDestination
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 
+/**
+ * Objekt obashujuci data pre navigaciu do obrazovky nacitania turnaja
+ */
 object LoadTournamentDestination : NavigationDestination {
     override val route = "load tournament"
     override val titleRes = R.string.load_tournament
 }
 
+/**
+ * Trieda ktora zabezpecuje zobrazenie obrazovky pre nacitanie turnaja
+ */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun LoadTournamentScreen (
@@ -72,6 +78,9 @@ fun LoadTournamentScreen (
     }
 }
 
+/**
+ * Funkcia zabezpecujuca zobrazenie spravneho obsahu
+ */
 @Composable
 fun LoadBody(
     tournamentList: List<Tournament>,
@@ -101,6 +110,9 @@ fun LoadBody(
     }
 }
 
+/**
+ * Funkcia ktora zabezpecuje zobrazenie zoznamu turnajov
+ */
 @Composable
 fun TournamentList(
     tournamentList: List<Tournament>,
@@ -124,6 +136,9 @@ fun TournamentList(
     }
 }
 
+/**
+ * Funkcia ktora zabezpecuje zobrazenie jednotliveho turnaja
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TournamentListItem(

@@ -27,6 +27,14 @@ fun TournamentManagerApp(
     )
 }
 
+/**
+ * Funkcia ktora nastavi top bar
+ * @param title Title top baru
+ * @param canNavigateBack nastavi ci je mozne ist spat
+ * @param modifier Modifier pre top bar, zakladne prazdny
+ * @param scrollBehavior nastavi scrollBehavior pre top bar
+ * @param navigateUp akcia ktora sa vykona pri stlaceni spat
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TournamentManagerTopAppBar(

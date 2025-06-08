@@ -25,11 +25,19 @@ import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 import com.ady.tournamentmanager.ui.theme.TournamentManagerTheme
 import kotlin.system.exitProcess
 
+/**
+ * Objekt pre navigaciu na obrazovku start
+ */
 object StartDestination : NavigationDestination {
     override val route = "start"
     override val titleRes = R.string.app_name
 }
 
+/**
+ * Funkcia ktora zobrazuje obrazovku start
+ * @param navigateToCreate Funkcia ktora sa vola pri vytvoreni noveho turnaja
+ * @param navigateToLoad Funkcia ktora sa vola pri nacitani existujuceho turnaja
+*/
 @SuppressLint("ContextCastToActivity") //Need to cast due to app termination
 @Composable
 fun StartScreen(
@@ -84,7 +92,7 @@ fun StartScreen(
     }
 }
 
-fun exitApp(activity: Activity?) {
+private fun exitApp(activity: Activity?) {
     activity?.finishAndRemoveTask()
     exitProcess(0)
 }

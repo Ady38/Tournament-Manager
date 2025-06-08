@@ -11,15 +11,22 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/**
+ * Trieda pre zobrazenie zoznamu hracov
+ * @param tournamentPlayerRepository Repozitar hracov
+ */
 class RankingsViewModel(private val tournamentPlayerRepository: TournamentPlayerRepository) : ViewModel() {
 
     var tournament = Tournament(name = "", firstStage = "", secondStage = "")
-    var playerCount = 0;
+    var playerCount = 0
 
-    companion object {
+    private companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
 
+    /**
+     * Funkcia ktora zmaze hraca
+     */
     fun deletePlayer(player: TournamentPlayer) {
         viewModelScope.launch {
             tournamentPlayerRepository.deleteItem(player)
@@ -27,6 +34,9 @@ class RankingsViewModel(private val tournamentPlayerRepository: TournamentPlayer
         }
     }
 
+    /**
+     * Objekt ktory obsahuje hracov daneho turnaja
+     */
     val tournamentPlayerUiState: StateFlow<TournamentPlayerUiState> =
         tournamentPlayerRepository.getAllItemsStream().map { TournamentPlayerUiState(it.filter { player -> player.tournament == tournament.id }) }
             .stateIn(
@@ -38,4 +48,7 @@ class RankingsViewModel(private val tournamentPlayerRepository: TournamentPlayer
 
 }
 
+/**
+ * Objekt pre stav hracov
+ */
 data class TournamentPlayerUiState(val itemList: List<TournamentPlayer> = listOf())

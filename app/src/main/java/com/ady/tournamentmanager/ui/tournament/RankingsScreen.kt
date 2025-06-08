@@ -17,7 +17,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -44,11 +43,22 @@ import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer
 import com.ady.tournamentmanager.ui.ViewModelProvider
 import com.ady.tournamentmanager.ui.navigation.NavigationDestination
 
+/**
+ * Objekt pre navigaciu na obrazovku poradie
+ */
 object RankingsDestination : NavigationDestination {
     override val route = "rankings"
     override val titleRes = R.string.rankings
 }
 
+/**
+ * Funkcia ktora zobrazuje obrazovku poradie
+ * @param onNavigateUp Funkcia ktora sa vola pri stlaceni spat
+ * @param navigateToPlayerAdd Funkcia ktora sa vola pri stlaceni tlacidla pridania hraca
+ * @param navigateToPairings Funkcia ktora sa vola pri stlaceni tlacidla parovania
+ * @param tournament Turnaj ktory sa zobrazi
+ * @param viewModel viewModel zabezpecujuci logiku a stav obrazovky
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RankingsScreen (
@@ -128,7 +138,9 @@ fun RankingsScreen (
 }
 
 
-
+/**
+ * Funkcia ktora zabezpecuje spravne zobrazenie obrazovky
+ */
 @Composable
 fun RankingsBody(
     playerList: List<TournamentPlayer>,
@@ -156,6 +168,9 @@ fun RankingsBody(
     }
 }
 
+/**
+ * Funkcia ktora zobrazuje zoznam hracov
+ */
 @Composable
 fun TournamentList(
     playerList: List<TournamentPlayer>,
@@ -163,7 +178,7 @@ fun TournamentList(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
-    var i: Int = 0;
+    var i = 0
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding
@@ -179,6 +194,9 @@ fun TournamentList(
     }
 }
 
+/**
+ * Funkcia ktora zobrazuje jednotliveho hraca
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TournamentPlayerListItem(

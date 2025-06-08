@@ -21,6 +21,14 @@ import com.ady.tournamentmanager.ui.pairings.PairingsScreen
 import com.ady.tournamentmanager.ui.tournament.RankingsDestination
 import com.ady.tournamentmanager.ui.tournament.RankingsScreen
 
+
+/**
+ * Funkcia ktora definuje navigacny graf aplikacie
+ *
+ * @param navController Ovaldac navigacie ktory ovlada aplikaciu.
+ * @param modifier [Modifier] ktory bude pouzity, zakladne prazdny
+ * @param loadTournamentViewModel Instancia viewmodelu ktory je pouzity na nacitanie turnajov
+ */
 @Composable
 fun TournamentManagerNavHost(
     navController: NavHostController,

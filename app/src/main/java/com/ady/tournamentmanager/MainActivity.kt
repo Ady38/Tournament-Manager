@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.ady.tournamentmanager.ui.theme.TournamentManagerTheme
 
+/**
+ * Hlavna aktivita aplikacie
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
