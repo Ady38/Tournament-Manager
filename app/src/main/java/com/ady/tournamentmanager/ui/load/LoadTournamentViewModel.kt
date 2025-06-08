@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-
 class LoadTournamentViewModel(private val tournamentRepository: TournamentRepository) : ViewModel() {
 
     var selectedTournament: Tournament = Tournament(name = "", firstStage = "", secondStage = "")

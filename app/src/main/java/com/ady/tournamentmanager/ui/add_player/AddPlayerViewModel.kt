@@ -1,8 +1,5 @@
 package com.ady.tournamentmanager.ui.add_player
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.ady.tournamentmanager.data.tournament.Tournament
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayer

@@ -2,6 +2,11 @@ package com.ady.tournamentmanager.data.match
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Offline implementacia triedy [MatchRepository]
+ *
+ * @property matchDao Objekt datoveho pristupu pre tabulku [Match]
+ */
 class OfflineMatchRepository(private val matchDao: MatchDao) : MatchRepository {
 
     override fun getAllItemsStream(): Flow<List<Match>> = matchDao.getAllItems()

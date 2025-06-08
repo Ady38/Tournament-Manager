@@ -27,12 +27,18 @@ import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase
 import com.ady.tournamentmanager.data.tournament_player.TournamentPlayerRepository
 
 
+/**
+ * Interface pre implementaciu repozitarov pre jednotlive tabulky v databaze
+ */
 interface AppContainer {
     val tournamentRepository: TournamentRepository
     val tournamentPlayerRepository: TournamentPlayerRepository
     val matchRepository: MatchRepository
 }
 
+/**
+ * Implementacia [AppContainer] ktora inicializuje repozitare pre jednotlive tabulky
+ */
 class AppDataContainer(private val context: Context) : AppContainer {
     override val tournamentRepository: TournamentRepository by lazy {
         OfflineTournamentRepository(TournamentDatabase.getDatabase(context).tournamentDao())
@@ -40,7 +46,6 @@ class AppDataContainer(private val context: Context) : AppContainer {
     override val tournamentPlayerRepository: TournamentPlayerRepository by lazy {
         OfflineTournamentPlayerRepository(TournamentPlayerDatabase.getDatabase(context).tournamentPlayerDao())
     }
-
     override val matchRepository: MatchRepository by lazy {
         OfflineMatchRepository(MatchDatabase.getDatabase(context).matchDao())
     }

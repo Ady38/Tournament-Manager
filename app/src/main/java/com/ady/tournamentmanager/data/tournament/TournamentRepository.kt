@@ -18,7 +18,9 @@ package com.ady.tournamentmanager.data.tournament
 
 import kotlinx.coroutines.flow.Flow
 
-
+/**
+ * Repozitar ktory zabezpecuje pracu s tabulkou [Tournament] v databaze
+ */
 interface TournamentRepository {
 
     fun getAllItemsStream(): Flow<List<Tournament>>

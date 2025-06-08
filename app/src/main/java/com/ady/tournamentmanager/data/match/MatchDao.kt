@@ -8,6 +8,9 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Objekt datoveho pristupu pre tabulku [Match]
+ */
 @Dao
 interface MatchDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

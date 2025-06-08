@@ -2,6 +2,11 @@ package com.ady.tournamentmanager.data.tournament
 
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Offline implementacia triedy [TournamentRepository]
+ *
+ * @property tournamentDao Objekt datoveho pristupu pre tabulku [Tournament]
+ */
 class OfflineTournamentRepository(private val tournamentDao: TournamentDao) : TournamentRepository {
 
     override fun getAllItemsStream(): Flow<List<Tournament>> = tournamentDao.getAllItems()

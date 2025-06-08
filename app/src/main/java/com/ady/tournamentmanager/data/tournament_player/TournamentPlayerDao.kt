@@ -7,6 +7,9 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Objekt datoveho pristupu pre tabulku [TournamentPlayer]
+ */
 @Dao
 interface TournamentPlayerDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
