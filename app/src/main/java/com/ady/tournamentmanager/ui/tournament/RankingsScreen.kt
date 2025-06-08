@@ -242,9 +242,16 @@ fun TournamentPlayerListItem(
             .fillMaxWidth()
     ){
         Column {
-            Row {
-                Text(text = ranking.toString() + stringResource(R.string.dot) + player.name + stringResource(R.string.space) + player.surname, modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
-                Text(text = player.points.toString(), modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)), textAlign = TextAlign.End)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = ranking.toString() + stringResource(R.string.dot) + player.name + stringResource(R.string.space) + player.surname,
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                )
+                Text(text = player.points.toString(),
+                    modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
             }
         }
 

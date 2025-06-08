@@ -1,0 +1,261 @@
+@startuml
+left to right direction
+skinparam wrapWidth 200
+
+class com.ady.tournamentmanager.data.match.OfflineMatchRepository {
++ Flow<List<Match>> getAllItemsStream()
++ Flow<Match?> getItemStream(Int)
++ void insertItem(Match)
++ void deleteItem(Match)
++ void updateItem(Match)
+}
+
+class com.ady.tournamentmanager.ExampleUnitTest {
++ void addition_isCorrect()
+}
+
+class com.ady.tournamentmanager.ui.load.LoadTournamentViewModel$Companion {
+}
+class com.ady.tournamentmanager.ui.load.LoadTournamentViewModel {
++ Tournament selectedTournament
++ StateFlow<TournamentUiState> tournamentUiState
++ void selectTournament(Int)
++ void deleteTournament(Tournament)
++ void null()
+}
+
+
+class com.ady.tournamentmanager.ui.load.TournamentUiState {
+}
+class com.ady.tournamentmanager.data.match.Match {
+}
+class com.ady.tournamentmanager.TournamentManagerApplication {
++ AppContainer container
++ void onCreate()
+}
+
+
+class com.ady.tournamentmanager.ui.tournament.RankingsDestination {
++  route
++  titleRes
+}
+
+class com.ady.tournamentmanager.data.tournament_player.TournamentPlayer {
+}
+class com.ady.tournamentmanager.data.tournament.OfflineTournamentRepository {
++ Flow<List<Tournament>> getAllItemsStream()
++ Flow<Tournament?> getItemStream(Int)
++ void insertItem(Tournament)
++ void deleteItem(Tournament)
++ void updateItem(Tournament)
+}
+
+interface com.ady.tournamentmanager.data.tournament_player.TournamentPlayerRepository {
++ Flow<List<TournamentPlayer>> getAllItemsStream()
++ Flow<TournamentPlayer?> getItemStream(Int)
++ void insertItem(TournamentPlayer)
++ void deleteItem(TournamentPlayer)
++ void updateItem(TournamentPlayer)
+}
+
+class com.ady.tournamentmanager.ExampleInstrumentedTest {
++ void useAppContext()
+}
+
+class com.ady.tournamentmanager.data.tournament.TournamentDatabase$Companion {
++ TournamentDatabase getDatabase(Context)
+}
+
+abstract class com.ady.tournamentmanager.data.tournament.TournamentDatabase {
++ TournamentDao tournamentDao()
+}
+
+class com.ady.tournamentmanager.ui.create.CreateTournamentDestination {
++  route
++  titleRes
+}
+
+interface com.ady.tournamentmanager.data.tournament.TournamentDao {
++ void insert(Tournament)
++ void update(Tournament)
++ void delete(Tournament)
++ Flow<Tournament> getItem(Int)
++ Flow<List<Tournament>> getAllItems()
+}
+
+class com.ady.tournamentmanager.data.match.MatchDatabase$Companion {
++ MatchDatabase getDatabase(Context)
+}
+
+abstract class com.ady.tournamentmanager.data.match.MatchDatabase {
++ MatchDao matchDao()
+}
+
+interface AppContainer {
++ TournamentRepository tournamentRepository
++ TournamentPlayerRepository tournamentPlayerRepository
++ MatchRepository matchRepository
+}
+
+class AppDataContainer {
++ TournamentRepository tournamentRepository
++ TournamentPlayerRepository tournamentPlayerRepository
++ MatchRepository matchRepository
+}
+
+class com.ady.tournamentmanager.ui.tournament.RankingsViewModel$Companion {
+}
+class com.ady.tournamentmanager.ui.tournament.RankingsViewModel {
++  tournament
++  playerCount
++ StateFlow<TournamentPlayerUiState> tournamentPlayerUiState
++ void deletePlayer(TournamentPlayer)
++ void null()
+}
+
+
+class com.ady.tournamentmanager.ui.tournament.TournamentPlayerUiState {
+}
+class com.ady.tournamentmanager.ui.add_player.AddPlayerDestination {
++  route
++  titleRes
+}
+
+class com.ady.tournamentmanager.ui.load.LoadTournamentDestination {
++  route
++  titleRes
+}
+
+class com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase$Companion {
++ TournamentPlayerDatabase getDatabase(Context)
+}
+
+abstract class com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase {
++ TournamentPlayerDao tournamentPlayerDao()
+}
+
+class com.ady.tournamentmanager.data.tournament.Tournament {
+}
+interface com.ady.tournamentmanager.ui.navigation.NavigationDestination {
++ String route
++ Int titleRes
+}
+
+class com.ady.tournamentmanager.ui.pairings.PairingsViewModel {
+}
+class com.ady.tournamentmanager.ui.pairings.null {
+}
+class com.ady.tournamentmanager.ui.pairings.MatchUiState {
+}
+class com.ady.tournamentmanager.ui.pairings.TournamentPlayerUiState {
+}
+class com.ady.tournamentmanager.MainActivity {
++ void onCreate(Bundle?)
+}
+
+interface TournamentRepository {
++ Flow<List<Tournament>> getAllItemsStream()
++ Flow<Tournament?> getItemStream(Int)
++ void insertItem(Tournament)
++ void deleteItem(Tournament)
++ void updateItem(Tournament)
+}
+
+class com.ady.tournamentmanager.ui.pairings.PairingsDestination {
++  route
++  titleRes
+}
+
+interface com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDao {
++ void insert(TournamentPlayer)
++ void update(TournamentPlayer)
++ void delete(TournamentPlayer)
++ Flow<TournamentPlayer> getItem(Int)
++ Flow<List<TournamentPlayer>> getAllItems()
+}
+
+interface com.ady.tournamentmanager.data.match.MatchDao {
++ void insert(Match)
++ void update(Match)
++ void delete(Match)
++ Flow<Match> getItem(Int)
++ Flow<List<Match>> getAllItems()
+}
+
+class com.ady.tournamentmanager.ui.create.CreateTournamentViewModel {
++  name
++  phases
++  firstPhase
++  secondPhase
++  isValid
++ void updateName(String)
++ void updatePhasesNumber(String)
++ void updateFirstPhase(String)
++ void updateSecondPhase(String)
++ void saveItem()
+}
+
+
+class com.ady.tournamentmanager.ui.start.StartDestination {
++  route
++  titleRes
+}
+
+class com.ady.tournamentmanager.ui.ViewModelProvider {
++  Factory
+}
+
+interface com.ady.tournamentmanager.data.match.MatchRepository {
++ Flow<List<Match>> getAllItemsStream()
++ Flow<Match?> getItemStream(Int)
++ void insertItem(Match)
++ void deleteItem(Match)
++ void updateItem(Match)
+}
+
+class com.ady.tournamentmanager.data.tournament_player.OfflineTournamentPlayerRepository {
++ Flow<List<TournamentPlayer>> getAllItemsStream()
++ Flow<TournamentPlayer?> getItemStream(Int)
++ void insertItem(TournamentPlayer)
++ void deleteItem(TournamentPlayer)
++ void updateItem(TournamentPlayer)
+}
+
+class com.ady.tournamentmanager.ui.add_player.AddPlayerViewModel {
++  name
++  surname
++  tournament
++  isValid
++ void updateName(String)
++ void updateSurname(String)
++ void saveItem()
+}
+
+
+
+
+com.ady.tournamentmanager.data.match.MatchRepository <|.. com.ady.tournamentmanager.data.match.OfflineMatchRepository
+com.ady.tournamentmanager.ui.load.LoadTournamentViewModel +.. com.ady.tournamentmanager.ui.load.LoadTournamentViewModel$Companion
+androidx.lifecycle.ViewModel <|-- com.ady.tournamentmanager.ui.load.LoadTournamentViewModel
+android.app.Application <|-- com.ady.tournamentmanager.TournamentManagerApplication
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.tournament.RankingsDestination
+com.ady.tournamentmanager.data.tournament.TournamentRepository <|.. com.ady.tournamentmanager.data.tournament.OfflineTournamentRepository
+com.ady.tournamentmanager.data.tournament.TournamentDatabase +.. com.ady.tournamentmanager.data.tournament.TournamentDatabase$Companion
+androidx.room.RoomDatabase <|-- com.ady.tournamentmanager.data.tournament.TournamentDatabase
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.create.CreateTournamentDestination
+com.ady.tournamentmanager.data.match.MatchDatabase +.. com.ady.tournamentmanager.data.match.MatchDatabase$Companion
+androidx.room.RoomDatabase <|-- com.ady.tournamentmanager.data.match.MatchDatabase
+AppContainer <|.. AppDataContainer
+com.ady.tournamentmanager.ui.tournament.RankingsViewModel +.. com.ady.tournamentmanager.ui.tournament.RankingsViewModel$Companion
+androidx.lifecycle.ViewModel <|-- com.ady.tournamentmanager.ui.tournament.RankingsViewModel
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.add_player.AddPlayerDestination
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.load.LoadTournamentDestination
+com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase +.. com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase$Companion
+androidx.room.RoomDatabase <|-- com.ady.tournamentmanager.data.tournament_player.TournamentPlayerDatabase
+androidx.activity.ComponentActivity <|-- com.ady.tournamentmanager.MainActivity
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.pairings.PairingsDestination
+androidx.lifecycle.ViewModel <|-- com.ady.tournamentmanager.ui.create.CreateTournamentViewModel
+com.ady.tournamentmanager.ui.navigation.NavigationDestination <|.. com.ady.tournamentmanager.ui.start.StartDestination
+com.ady.tournamentmanager.data.tournament_player.TournamentPlayerRepository <|.. com.ady.tournamentmanager.data.tournament_player.OfflineTournamentPlayerRepository
+androidx.lifecycle.ViewModel <|-- com.ady.tournamentmanager.ui.add_player.AddPlayerViewModel
+@enduml
