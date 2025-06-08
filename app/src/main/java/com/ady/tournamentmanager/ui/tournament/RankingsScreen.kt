@@ -85,11 +85,11 @@ fun RankingsScreen (
             Column{
                 ExtendedFloatingActionButton(
                     onClick = {
-                        if (viewModel.playerCount < 16 && !viewModel.tournament.finished) {
+                        if (viewModel.tournament.round == 0 && !viewModel.tournament.finished) {
                             navigateToPlayerAdd()
                         }},
                     shape = MaterialTheme.shapes.medium,
-                    containerColor = if (viewModel.playerCount < 16 && !viewModel.tournament.finished) MaterialTheme.colorScheme.primary else Color.Gray,
+                    containerColor = if (viewModel.tournament.round == 0 && !viewModel.tournament.finished) MaterialTheme.colorScheme.primary else Color.Gray,
                     text = {
                         Text(text = viewModel.playerCount.toString(), color = Color.White)
                     },
